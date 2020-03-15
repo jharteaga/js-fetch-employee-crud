@@ -23,8 +23,8 @@
     </div>
     <div class="main-container">
       <div class="actions-container">
-        <button class="btn btn-info">Get Employees</button>
-        <button class="btn btn-success">New Employee</button>
+        <button class="btn btn-info" id="getEmployees">Get Employees</button>
+        <button class="btn btn-success" id="postEmployee">New Employee</button>
         <button class="btn btn-warning">Update Employee</button>
         <button class="btn btn-danger">Delete Employee</button>
       </div>
@@ -87,7 +87,9 @@
               />
               <small class="error form-text">This field is required</small>
             </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="submit" class="btn btn-primary" id="newEmpSubmit">
+              Submit
+            </button>
           </form>
         </div>
         <div class="put-container">

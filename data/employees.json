@@ -1,0 +1,38 @@
+[
+  {
+    "id": 1,
+    "firstName": "Roberto",
+    "lastName": "Hernandez",
+    "dateOfBirth": "1986-04-23T18:25:43.511Z",
+    "department": "IT",
+    "position": "Front-End Developer",
+    "photoUrl": "https://randomuser.me/api/portraits/men/1.jpg"
+  },
+  {
+    "id": 2,
+    "firstName": "Jorge",
+    "lastName": "Villeda",
+    "dateOfBirth": "1988-06-06T20:12:28.345Z",
+    "department": "IT",
+    "position": "Java Developer",
+    "photoUrl": "https://randomuser.me/api/portraits/men/2.jpg"
+  },
+  {
+    "id": 3,
+    "firstName": "Cinthya",
+    "lastName": "Escobar",
+    "dateOfBirth": "1987-01-01T01:12:23.123Z",
+    "department": "IT",
+    "position": "Business Partner",
+    "photoUrl": "https://randomuser.me/api/portraits/women/3.jpg"
+  },
+  {
+    "id": 4,
+    "firstName": "Pablo",
+    "lastName": "Portillo",
+    "dateOfBirth": "1987-10-19T13:11:48.222Z",
+    "department": "IT",
+    "position": "Development Manager",
+    "photoUrl": "https://randomuser.me/api/portraits/men/4.jpg"
+  }
+]

@@ -47,7 +47,7 @@
 /*Styling Results Container */
 
 .results-container {
-  margin: 1.5em auto;
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -57,22 +57,47 @@
   font-family: "Poppins", sans-serif;
 }
 
+/*Styling Get Container */
+
+.employee {
+  display: flex;
+  width: 600px;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 0.3em;
+}
+
+.employee ul {
+  list-style: none;
+  align-self: center;
+}
+
+/*Styling Form Elements */
+
 .form-control {
   width: 500px;
 }
 
-#post-form {
+.get-container {
   display: none;
 }
 
-#put-form {
+.post-container {
   display: none;
 }
 
-#delete-form {
+.put-container {
+  display: none;
+}
+
+.delete-container {
   display: none;
 }
 
 .error {
   color: red;
+}
+
+#newEmpSubmit {
+  width: 500px;
 }
