@@ -16,17 +16,17 @@
 }
 
 .logo {
-  width: 200px;
+  width: 150px;
 }
 
 .title {
   font-weight: 700;
-  font-size: 3rem;
+  font-size: 2rem;
   text-align: center;
 }
 
 .description {
-  font-size: 1.2rem;
+  font-size: 1rem;
   text-align: center;
 }
 
@@ -41,13 +41,14 @@
 }
 
 .actions-container button {
-  padding: 0.7em;
+  padding: 0.5em;
+  border-radius: 8px;
 }
 
 /*Styling Results Container */
 
 .results-container {
-  margin: 0 auto;
+  margin: 0 auto 1em auto;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -94,10 +95,32 @@
   display: none;
 }
 
-.error {
+#newEmpSubmit {
+  width: 500px;
+  border-radius: 8px;
+}
+
+.form-group {
+  margin: 0 0 0.8em 0;
+}
+
+.form-group.success input {
+  border-color: green;
+}
+
+.form-group.error input {
+  border-color: red;
+}
+
+.form-group.error small {
+  visibility: visible;
   color: red;
 }
 
-#newEmpSubmit {
-  width: 500px;
+.form-group.success small {
+  visibility: hidden;
+}
+
+.form-group small {
+  visibility: hidden;
 }
