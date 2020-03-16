@@ -96,7 +96,7 @@ function cleanFields(inputArr) {
 //Event listeners
 //Get list of employees
 getEmployeesBtn.addEventListener("click", () => {
-  fetch("http://localhost:8081/employee-api/v1/employees/", {
+  fetch("https://employee-api-demo.herokuapp.com/employee-api/v1/employees/", {
     method: "get",
     mode: "cors",
     headers: {
@@ -191,16 +191,19 @@ postForm.addEventListener("submit", (e) => {
       postPosition.value
     );
 
-    fetch("http://localhost:8081/employee-api/v1/employees/", {
-      method: "post",
-      mode: "cors",
-      headers: {
-        "Access-Control-Allow-Origin": "*",
-        Accept: "application/json, text/plain, */*",
-        "Content-type": "application/json"
-      },
-      body: JSON.stringify(newEmp)
-    })
+    fetch(
+      "https://employee-api-demo.herokuapp.com/employee-api/v1/employees/",
+      {
+        method: "post",
+        mode: "cors",
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+          Accept: "application/json, text/plain, */*",
+          "Content-type": "application/json"
+        },
+        body: JSON.stringify(newEmp)
+      }
+    )
       .then((res) => res.json())
       .then((data) => console.log(data));
 
@@ -242,7 +245,7 @@ putForm.addEventListener("submit", (e) => {
   e.preventDefault();
   if (checkRequired([putEmployeeCode])) {
     fetch(
-      `http://localhost:8081/employee-api/v1/employees/${putEmployeeCode.value}`,
+      `https://employee-api-demo.herokuapp.com/employee-api/v1/employees/${putEmployeeCode.value}`,
       {
         method: "get",
         mode: "cors",
@@ -297,7 +300,7 @@ putEmpForm.addEventListener("submit", (e) => {
     );
 
     fetch(
-      `http://localhost:8081/employee-api/v1/employees/${putEmployeeCode.value}`,
+      `https://employee-api-demo.herokuapp.com/employee-api/v1/employees/${putEmployeeCode.value}`,
       {
         method: "put",
         mode: "cors",
@@ -351,7 +354,7 @@ deleteForm.addEventListener("submit", (e) => {
   e.preventDefault();
   if (checkRequired([deleteEmployeeCode])) {
     fetch(
-      `http://localhost:8081/employee-api/v1/employees/${deleteEmployeeCode.value}`,
+      `https://employee-api-demo.herokuapp.com/employee-api/v1/employees/${deleteEmployeeCode.value}`,
       {
         method: "get",
         mode: "cors",
@@ -365,7 +368,7 @@ deleteForm.addEventListener("submit", (e) => {
         if (data !== null) {
           console.log(data);
           fetch(
-            `http://localhost:8081/employee-api/v1/employees/${deleteEmployeeCode.value}`,
+            `https://employee-api-demo.herokuapp.com/employee-api/v1/employees/${deleteEmployeeCode.value}`,
             {
               method: "delete",
               mode: "cors",
