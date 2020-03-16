@@ -103,16 +103,15 @@ postForm.addEventListener("submit", (e) => {
       postDepartment.value,
       postPosition.value
     );
-    console.log(newEmp);
 
-    fetch("data/employees.json", {
-      method: "POST",
-      headers: {
-        "Content-type": "application/json"
-      },
-      body: JSON.stringify(newEmp)
-    })
+    fetch("data/employees.json")
       .then((res) => res.json())
-      .then((data) => console.log(data));
+      .then((data) => {
+        data.push(newEmp);
+        var fs = require("fs");
+        fs.writeFile("data/employees.json", data, (err) => {
+          if (err) console.log(err);
+        });
+      });
   }
 });
