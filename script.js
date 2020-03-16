@@ -11,9 +11,11 @@ class Employee {
   }
 }
 
+//Get elements
 const getEmployeesBtn = document.getElementById("getEmployees");
 const getContainer = document.querySelector(".get-container");
 
+//Post elements
 const postEmployeeBtn = document.getElementById("postEmployee");
 const postContainer = document.querySelector(".post-container");
 const postForm = document.getElementById("post-form");
@@ -22,6 +24,12 @@ const postLastName = document.getElementById("postLastName");
 const postDateOfBirth = document.getElementById("postDateOfBirth");
 const postDepartment = document.getElementById("postDepartment");
 const postPosition = document.getElementById("postPosition");
+
+//Put elements
+const putEmployeeBtn = document.getElementById("putEmployee");
+const putContainer = document.querySelector(".put-container");
+const putForm = document.getElementById("put-form");
+const putEmployeeCode = document.getElementById("putEmployeeCode");
 
 //Show inputs error messages
 function showError(input, message) {
@@ -56,35 +64,59 @@ function checkRequired(inputsArr) {
   return status;
 }
 
+//Clean input fields
+function cleanFields(inputArr) {
+  inputArr.forEach((input) => {
+    input.value = "";
+    input.classList.remove("success");
+  });
+}
+
 //Event listeners
+//Get list of employees
 getEmployeesBtn.addEventListener("click", () => {
-  fetch("data/employees.json")
+  fetch("http://localhost:8081/employee-api/v1/employees/", {
+    method: "get",
+    mode: "cors",
+    headers: {
+      "Access-Control-Allow-Origin": "*"
+    }
+  })
     .then((res) => res.json())
     .then((data) => {
       let output = "";
-      data.forEach((employee) => {
-        output += `<div class='employee'>
-                    <img src='${employee.photoUrl}' alt='Employee image' class='photo'>
-                    <ul>
-                        <li><strong>First Name:</strong> ${employee.firstName}</li>
-                        <li><strong>Last Name:</strong> ${employee.lastName}</li>
-                        <li><strong>Date of Birth:</strong> ${employee.dateOfBirth}</li>
-                        <li><strong>Department:</strong> ${employee.department}</li>
-                        <li><strong>Position:</strong> ${employee.position}</li>
-                    </ul>
-                 </div>`;
-      });
+      if (data.length > 0) {
+        data.forEach((employee) => {
+          output += `<div class='employee'>
+                      <img src='${employee.photoUrl}' alt='Employee image' class='photo'>
+                      <ul>
+                          <li><strong>First Name:</strong> ${employee.firstName}</li>
+                          <li><strong>Last Name:</strong> ${employee.lastName}</li>
+                          <li><strong>Date of Birth:</strong> ${employee.dateOfBirth}</li>
+                          <li><strong>Department:</strong> ${employee.department}</li>
+                          <li><strong>Position:</strong> ${employee.position}</li>
+                      </ul>
+                   </div>`;
+        });
+      } else {
+        output += `<h2>No employee information</h2>`;
+      }
+
       getContainer.innerHTML = output;
       postContainer.style.display = "none";
       getContainer.style.display = "block";
+      putContainer.style.display = "none";
     });
 });
 
+//Enable Post Employee Form
 postEmployeeBtn.addEventListener("click", () => {
   postContainer.style.display = "block";
   getContainer.style.display = "none";
+  putContainer.style.display = "none";
 });
 
+//Create a new employee event
 postForm.addEventListener("submit", (e) => {
   e.preventDefault();
   if (
@@ -104,14 +136,34 @@ postForm.addEventListener("submit", (e) => {
       postPosition.value
     );
 
-    fetch("data/employees.json")
+    fetch("http://localhost:8081/employee-api/v1/employees/", {
+      method: "post",
+      mode: "cors",
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+        Accept: "application/json, text/plain, */*",
+        "Content-type": "application/json"
+      },
+      body: JSON.stringify(newEmp)
+    })
       .then((res) => res.json())
-      .then((data) => {
-        data.push(newEmp);
-        var fs = require("fs");
-        fs.writeFile("data/employees.json", data, (err) => {
-          if (err) console.log(err);
-        });
-      });
+      .then((data) => console.log(data));
+
+    cleanFields([
+      postFirstName,
+      postLastName,
+      postDateOfBirth,
+      postDepartment,
+      postPosition
+    ]);
   }
 });
+
+//Enable Put form event
+putEmployeeBtn.addEventListener("click", () => {
+  postContainer.style.display = "none";
+  getContainer.style.display = "none";
+  putContainer.style.display = "block";
+});
+
+//Update an employee event
