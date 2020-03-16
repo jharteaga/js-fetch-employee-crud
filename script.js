@@ -45,6 +45,12 @@ const putDepartment = document.getElementById("putDepartment");
 const putPosition = document.getElementById("putPosition");
 const putUrlPhoto = document.getElementById("putUrlPhoto");
 
+//Delete elements
+const deleteEmployeeBtn = document.getElementById("deleteEmployee");
+const deleteContainer = document.querySelector(".delete-container");
+const deleteForm = document.getElementById("delete-form");
+const deleteEmployeeCode = document.getElementById("deleteEmployeeCode");
+
 //Show inputs error messages
 function showError(input, message) {
   const formControl = input.parentElement;
@@ -82,7 +88,8 @@ function checkRequired(inputsArr) {
 function cleanFields(inputArr) {
   inputArr.forEach((input) => {
     input.value = "";
-    input.classList.remove("success");
+    input.parentElement.classList.remove("success");
+    input.parentElement.classList.remove("error");
   });
 }
 
@@ -120,6 +127,23 @@ getEmployeesBtn.addEventListener("click", () => {
       postContainer.style.display = "none";
       getContainer.style.display = "block";
       putContainer.style.display = "none";
+      deleteContainer.style.display = "none";
+
+      cleanFields([
+        postFirstName,
+        postLastName,
+        postDateOfBirth,
+        postDepartment,
+        postPosition,
+        putEmployeeCode,
+        putFirstName,
+        putLastName,
+        putDateOfBirth,
+        putDepartment,
+        putPosition,
+        putUrlPhoto,
+        deleteEmployeeCode
+      ]);
     });
 });
 
@@ -128,6 +152,23 @@ postEmployeeBtn.addEventListener("click", () => {
   postContainer.style.display = "block";
   getContainer.style.display = "none";
   putContainer.style.display = "none";
+  deleteContainer.style.display = "none";
+
+  cleanFields([
+    postFirstName,
+    postLastName,
+    postDateOfBirth,
+    postDepartment,
+    postPosition,
+    putEmployeeCode,
+    putFirstName,
+    putLastName,
+    putDateOfBirth,
+    putDepartment,
+    putPosition,
+    putUrlPhoto,
+    deleteEmployeeCode
+  ]);
 });
 
 //Create a new employee event
@@ -178,13 +219,21 @@ putEmployeeBtn.addEventListener("click", () => {
   postContainer.style.display = "none";
   getContainer.style.display = "none";
   putContainer.style.display = "block";
+  deleteContainer.style.display = "none";
   cleanFields([
+    postFirstName,
+    postLastName,
+    postDateOfBirth,
+    postDepartment,
+    postPosition,
     putEmployeeCode,
     putFirstName,
     putLastName,
     putDateOfBirth,
     putDepartment,
-    putPosition
+    putPosition,
+    putUrlPhoto,
+    deleteEmployeeCode
   ]);
 });
 
@@ -271,5 +320,65 @@ putEmpForm.addEventListener("submit", (e) => {
       putPosition,
       putUrlPhoto
     ]);
+  }
+});
+
+//Enable Delete form container
+deleteEmployeeBtn.addEventListener("click", () => {
+  postContainer.style.display = "none";
+  getContainer.style.display = "none";
+  putContainer.style.display = "none";
+  deleteContainer.style.display = "block";
+  cleanFields([
+    postFirstName,
+    postLastName,
+    postDateOfBirth,
+    postDepartment,
+    postPosition,
+    putEmployeeCode,
+    putFirstName,
+    putLastName,
+    putDateOfBirth,
+    putDepartment,
+    putPosition,
+    putUrlPhoto,
+    deleteEmployeeCode
+  ]);
+});
+
+//Delete employee event
+deleteForm.addEventListener("submit", (e) => {
+  e.preventDefault();
+  if (checkRequired([deleteEmployeeCode])) {
+    fetch(
+      `http://localhost:8081/employee-api/v1/employees/${deleteEmployeeCode.value}`,
+      {
+        method: "get",
+        mode: "cors",
+        headers: {
+          "Access-Control-Allow-Origin": "*"
+        }
+      }
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        if (data !== null) {
+          console.log(data);
+          fetch(
+            `http://localhost:8081/employee-api/v1/employees/${deleteEmployeeCode.value}`,
+            {
+              method: "delete",
+              mode: "cors",
+              headers: {
+                "Access-Control-Allow-Origin": "*"
+              }
+            }
+          )
+            .then((res) => res.text())
+            .then((data) => console.log(data));
+        } else {
+          showError(deleteEmployeeCode, "Employee code doesn't exist");
+        }
+      });
   }
 });

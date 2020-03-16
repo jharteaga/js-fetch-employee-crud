@@ -28,7 +28,9 @@
         <button class="btn btn-warning" id="putEmployee">
           Update Employee
         </button>
-        <button class="btn btn-danger">Delete Employee</button>
+        <button class="btn btn-danger" id="deleteEmployee">
+          Delete Employee
+        </button>
       </div>
       <hr />
       <div class="results-container">
@@ -174,6 +176,7 @@
                 name="urlPhoto"
                 id="putUrlPhoto"
                 placeholder="Enter photo URL"
+                disabled
               />
               <small class="form-text">This field is required</small>
             </div>
@@ -190,11 +193,13 @@
                 type="number"
                 class="form-control"
                 name="employeeCode"
-                id="employeeCode"
+                id="deleteEmployeeCode"
                 placeholder="Enter employee code"
               />
               <small class="error form-text">This field is required</small>
-              <button type="submit" class="btn btn-danger">Delete</button>
+              <button type="submit" class="btn btn-danger search">
+                Delete
+              </button>
             </div>
           </form>
         </div>
