@@ -1,13 +1,20 @@
 class Employee {
-  constructor(firstName, lastName, dateOfBirth, department, position) {
+  constructor(
+    firstName,
+    lastName,
+    dateOfBirth,
+    department,
+    position,
+    photoUrl = `https://randomuser.me/api/portraits/men/${Math.floor(
+      Math.random() * 50
+    )}.jpg`
+  ) {
     this.firstName = firstName;
     this.lastName = lastName;
     this.dateOfBirth = dateOfBirth;
     this.department = department;
     this.position = position;
-    this.photoUrl = `https://randomuser.me/api/portraits/men/${Math.floor(
-      Math.random() * 50
-    )}.jpg`;
+    this.photoUrl = photoUrl;
   }
 }
 
@@ -30,6 +37,13 @@ const putEmployeeBtn = document.getElementById("putEmployee");
 const putContainer = document.querySelector(".put-container");
 const putForm = document.getElementById("put-form");
 const putEmployeeCode = document.getElementById("putEmployeeCode");
+const putEmpForm = document.getElementById("putEmpForm");
+const putFirstName = document.getElementById("putFirstName");
+const putLastName = document.getElementById("putLastName");
+const putDateOfBirth = document.getElementById("putDateOfBirth");
+const putDepartment = document.getElementById("putDepartment");
+const putPosition = document.getElementById("putPosition");
+const putUrlPhoto = document.getElementById("putUrlPhoto");
 
 //Show inputs error messages
 function showError(input, message) {
@@ -47,7 +61,7 @@ function showSuccess(input) {
 
 //Get input field name
 function getFieldName(input) {
-  return input.id.charAt(4).toUpperCase() + input.id.slice(5);
+  return input.id.charAt(0).toUpperCase() + input.id.slice(1);
 }
 
 //Validate required inputs values
@@ -164,6 +178,98 @@ putEmployeeBtn.addEventListener("click", () => {
   postContainer.style.display = "none";
   getContainer.style.display = "none";
   putContainer.style.display = "block";
+  cleanFields([
+    putEmployeeCode,
+    putFirstName,
+    putLastName,
+    putDateOfBirth,
+    putDepartment,
+    putPosition
+  ]);
 });
 
 //Update an employee event
+putForm.addEventListener("submit", (e) => {
+  e.preventDefault();
+  if (checkRequired([putEmployeeCode])) {
+    fetch(
+      `http://localhost:8081/employee-api/v1/employees/${putEmployeeCode.value}`,
+      {
+        method: "get",
+        mode: "cors",
+        headers: {
+          "Access-Control-Allow-Origin": "*"
+        }
+      }
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        if (data !== null) {
+          putFirstName.value = data.firstName;
+          putLastName.value = data.lastName;
+          putDateOfBirth.value = data.dateOfBirth;
+          putDepartment.value = data.department;
+          putPosition.value = data.position;
+          putUrlPhoto.value = data.photoUrl;
+        } else {
+          showError(putEmployeeCode, "Employee code doesn't exist");
+          cleanFields([
+            putFirstName,
+            putLastName,
+            putDateOfBirth,
+            putDepartment,
+            putPosition,
+            putUrlPhoto
+          ]);
+        }
+      });
+  }
+});
+
+putEmpForm.addEventListener("submit", (e) => {
+  e.preventDefault();
+  if (
+    checkRequired([
+      putFirstName,
+      putLastName,
+      putDateOfBirth,
+      putDepartment,
+      putPosition,
+      putUrlPhoto
+    ])
+  ) {
+    const newEmp = new Employee(
+      putFirstName.value,
+      putLastName.value,
+      putDateOfBirth.value,
+      putDepartment.value,
+      putPosition.value,
+      putUrlPhoto.value
+    );
+
+    fetch(
+      `http://localhost:8081/employee-api/v1/employees/${putEmployeeCode.value}`,
+      {
+        method: "put",
+        mode: "cors",
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+          Accept: "application/json, text/plain, */*",
+          "Content-type": "application/json"
+        },
+        body: JSON.stringify(newEmp)
+      }
+    )
+      .then((res) => res.json())
+      .then((data) => console.log(data));
+    cleanFields([
+      putEmployeeCode,
+      putFirstName,
+      putLastName,
+      putDateOfBirth,
+      putDepartment,
+      putPosition,
+      putUrlPhoto
+    ]);
+  }
+});

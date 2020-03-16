@@ -95,19 +95,91 @@
           </form>
         </div>
         <div class="put-container">
-          <form method="post" id="put-form">
+          <form id="put-form">
             <div class="form-group">
               <label for="employeeCode">Employee code:</label>
               <input
-                type="text"
+                type="number"
                 class="form-control"
                 name="employeeCode"
                 id="putEmployeeCode"
                 placeholder="Enter employee code"
               />
               <small class="error form-text">This field is required</small>
-              <button type="submit" class="btn btn-primary">Search</button>
+              <button type="submit" class="btn btn-primary search">
+                Search
+              </button>
             </div>
+          </form>
+          <form method="post" id="putEmpForm">
+            <div class="form-group">
+              <label for="firstName">First Name:</label>
+              <input
+                type="text"
+                class="form-control"
+                name="firstName"
+                id="putFirstName"
+                placeholder="Enter first name"
+              />
+              <small class="form-text">This field is required</small>
+            </div>
+            <div class="form-group">
+              <label for="lastName">Last Name:</label>
+              <input
+                type="text"
+                class="form-control"
+                name="lastName"
+                id="putLastName"
+                placeholder="Enter last name"
+              />
+              <small class="form-text">This field is required</small>
+            </div>
+            <div class="form-group">
+              <label for="dateOfBirth">Date of Birth:</label>
+              <input
+                type="date"
+                class="form-control"
+                name="dateOfBirth"
+                id="putDateOfBirth"
+              />
+              <small class="form-text">This field is required</small>
+            </div>
+            <div class="form-group">
+              <label for="department">Department:</label>
+              <input
+                type="text"
+                class="form-control"
+                name="department"
+                id="putDepartment"
+                placeholder="Enter department"
+              />
+              <small class="form-text">This field is required</small>
+            </div>
+            <div class="form-group">
+              <label for="position">Position:</label>
+              <input
+                type="text"
+                class="form-control"
+                name="position"
+                id="putPosition"
+                placeholder="Enter position"
+              />
+              <small class="form-text">This field is required</small>
+            </div>
+            <div class="form-group">
+              <label for="urlPhoto">Url Photo:</label>
+              <input
+                type="text"
+                class="form-control"
+                name="urlPhoto"
+                id="putUrlPhoto"
+                placeholder="Enter photo URL"
+              />
+              <small class="form-text">This field is required</small>
+            </div>
+            <button type="submit" class="btn btn-primary">
+              Update
+            </button>
           </form>
         </div>
         <div class="delete-container">
@@ -115,7 +187,7 @@
             <div class="form-group">
               <label for="employeeCode">Employee code:</label>
               <input
-                type="text"
+                type="number"
                 class="form-control"
                 name="employeeCode"
                 id="employeeCode"
